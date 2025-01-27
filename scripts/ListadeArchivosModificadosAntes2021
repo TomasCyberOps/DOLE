@@ -1,0 +1,13 @@
+# Ruta del disco a analizar
+$Ruta = "E:\"
+
+# Definir la fecha límite (1 de enero de 2021)
+$FechaLimite = Get-Date "2021-01-01"
+
+# Filtrar archivos que no han sido modificados desde el 1 de enero de 2021
+Get-ChildItem -Path $Ruta -Recurse -File | Where-Object {
+    $_.LastWriteTime -lt $FechaLimite
+} | ForEach-Object {
+    # Mostrar en pantalla el archivo y su fecha de última modificación
+    Write-Output "Archivo: $($_.FullName) | Última modificación: $($_.LastWriteTime)"
+}
